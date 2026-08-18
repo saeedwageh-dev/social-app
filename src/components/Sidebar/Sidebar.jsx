@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../Context/AuthContext";
 
 function Sidebar () {
@@ -10,6 +10,12 @@ function Sidebar () {
     setUserToken(null);
     navigate("/login");
   };
+  const navLinkClass = ({ isActive }) =>
+  `group flex h-14.5 items-center gap-4 rounded-xl border px-4 transition-all duration-200 ${
+    isActive
+      ? "border-[#222428ef] bg-[#151321] text-[#8B5CF6] shadow-[0_0_20px_rgba(124,77,255,0.008)]"
+      : "border-transparent text-[#E4E4E8] hover:border-[#29213F] hover:bg-[#11111A]"
+  }`;
   return (
     <aside className="fixed left-0 top-0 z-50 flex h-screen w-70 min-h-screen flex-col bg-[#0f1218] px-4 py-5 font-['Plus_Jakarta_Sans',sans-serif] text-[#F5F5F7]">
       {/* Brand */}
@@ -43,14 +49,14 @@ function Sidebar () {
       {/* Navigation */}
       <nav className="flex flex-col gap-1.5">
         {/* Home */}
-        <Link to={"/"} className="flex h-14.5 items-center gap-4 rounded-xl border border-[#222428ef] bg-[#151321] px-4 text-[#8B5CF6] shadow-[0_0_20px_rgba(124,77,255,0.008)]">
+        <NavLink to={"/"} className={navLinkClass}>
           <svg width="23" height="23" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className="shrink-0">
             <path d="M3.5 10.7L12 3.8L20.5 10.7V20C20.5 20.55 20.05 21 19.5 21H4.5C3.95 21 3.5 20.55 3.5 20V10.7Z" fill="currentColor" />
             <path d="M9 21V14H15V21" fill="#151321" />
           </svg>
 
           <span className="text-[15px] font-semibold">Home</span>
-        </Link>
+        </NavLink>
 
         {/* Messages */}
         <div className="group flex h-14.5 cursor-pointer items-center gap-4 rounded-xl border border-transparent px-4 transition-all duration-200 hover:border-[#29213F] hover:bg-[#11111A]">
@@ -124,7 +130,7 @@ function Sidebar () {
         </div>
 
         {/* Profile */}
-        <Link to={"/profile"} className="group flex h-14.5 cursor-pointer items-center gap-4 rounded-xl border border-transparent px-4 transition-all duration-200 hover:border-[#29213F] hover:bg-[#11111A]">
+        <NavLink to={"/profile"} className={navLinkClass}>
           <svg
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 24 24"
@@ -138,7 +144,7 @@ function Sidebar () {
           </svg>
 
           <span className="text-[15px] font-medium text-[#E8E8EC] transition-colors duration-200 group-hover:text-white">Profile</span>
-        </Link>
+        </NavLink>
 
         {/* Logout */}
         <button onClick={logout} className="group flex h-14.5 cursor-pointer items-center gap-4 rounded-xl border border-transparent px-4 transition-all duration-200 hover:border-[#29213F] hover:bg-[#11111A]">
@@ -164,34 +170,6 @@ function Sidebar () {
         <div className=" flex w-full flex-col gap-4 px-3 pb-2 text-[#F5F5F7]">
           {/* Create Post */}
 
-          {/* User Account */}
-          {/* <div className="flex items-center gap-3 px-2 py-1">
-            <div className="relative shrink-0">
-              <img src="https://i.pravatar.cc/96?img=12" alt="Victor Emokpare" className="h-11 w-11 rounded-full object-cover ring-1 ring-white/10" />
-
-              <span className="absolute bottom-0 right-0 h-3 w-3 rounded-full border-2 border-[#08090D] bg-[#22C55E]" />
-            </div>
-
-            <div className="min-w-0">
-              <p className="truncate text-[14px] font-semibold text-[#F5F5F7]">Victor Emokpare</p>
-
-              <p className="mt-0.5 truncate text-[13px] font-medium text-[#9A9CA8]">@Damdavik</p>
-            </div>
-
-            <button
-              type="button"
-              aria-label="More options"
-              className="ml-auto flex h-10 w-10 shrink-0 items-center justify-center rounded-xl text-[#9A9CA8] transition-all duration-200 hover:bg-[#151721] hover:text-[#F5F5F7]"
-            >
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="h-5 w-5">
-                <circle cx="12" cy="5" r="1.5" />
-                <circle cx="12" cy="12" r="1.5" />
-                <circle cx="12" cy="19" r="1.5" />
-              </svg>
-            </button>
-          </div> */}
-
-          {/* Profile */}
 
           {/* Divider */}
           <div className="h-px w-full bg-white/10" />

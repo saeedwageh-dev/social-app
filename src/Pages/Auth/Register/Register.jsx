@@ -11,6 +11,7 @@ import { AuthContext } from "../../../Context/AuthContext";
 function Register({ setIsRegister }) {
   const [errorMessage, setErrorMessage] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
+  
   const navigate = useNavigate();
   const{setUserToken}=useContext(AuthContext)
 
@@ -38,8 +39,7 @@ function Register({ setIsRegister }) {
       .post("https://route-posts.routemisr.com/users/signup", data)
       .then((res) => {
         console.log(res.data.data.token);
-        localStorage.setItem("token", res.data.data.token);
-       setUserToken(res.data.data.token)
+       
         navigate("/login");
       })
       .catch((error) => {

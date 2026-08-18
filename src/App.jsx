@@ -10,6 +10,7 @@ import Register from "./Pages/Auth/Register/Register";
 import { AuthContextProvider } from "./Context/AuthContext";
 import ProtectedRoute from "./components/ProtectedRoute/ProtectedRoute";
 import ProtectedAuth from "./components/ProtectedAuth/ProtectedAuth";
+import PageNotFound from "./Pages/PageNotFound/PageNotFound";
 
 const queryClient = new QueryClient();
 
@@ -54,6 +55,10 @@ function App() {
         },
       ],
     },
+    {
+      path: "*",
+      element: <PageNotFound />,
+    }
   ]);
 
   return (
