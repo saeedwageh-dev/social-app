@@ -16,7 +16,7 @@ export default function PostDetails() {
   function getPostDetails(){
     return axios.get(`https://route-posts.routemisr.com/posts/${id}`,{
       headers:{
-        Authorization:`Bearer ${userToken}`
+        Authorization:`Bearer ${localStorage.getItem("token")}`
       }
     
     })

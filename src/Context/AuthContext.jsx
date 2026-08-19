@@ -22,7 +22,7 @@ const AuthContextProvider = ({ children }) => {
       setUserToken(localStorage.getItem("token"));
       getUserData()
     }
-  }, []);
+  }, [userToken]);
 
   return <AuthContext.Provider value={{ userToken, setUserToken,userData }}>{children}</AuthContext.Provider>;
 };

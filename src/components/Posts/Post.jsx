@@ -23,7 +23,7 @@ function Post({ post, isSinglePost = false }) {
   function getPostComment() {
     return axios.get(`https://route-posts.routemisr.com/posts/${post?.id}/comments`, {
       headers: {
-        Authorization: `Bearer ${userToken}`,
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
       },
     });
   }

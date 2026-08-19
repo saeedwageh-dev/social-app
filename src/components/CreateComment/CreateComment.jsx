@@ -18,7 +18,7 @@ function CreateComment({ postId, queryKey }) {
   function createCommentFunc() {
     return axios.post(`https://route-posts.routemisr.com/posts/${postId}/comments`, formData, {
       headers: {
-        Authorization: `Bearer ${userToken}`,
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
       },
     });
   }

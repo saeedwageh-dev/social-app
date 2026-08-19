@@ -14,7 +14,7 @@ function Home() {
   function getAllPosts() {
     return axios.get("https://route-posts.routemisr.com/posts", {
       headers: {
-        Authorization: `Bearer ${userToken}`,
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
       },
       params: {
         sort: "-createdAt",

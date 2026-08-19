@@ -26,7 +26,7 @@ function CreatePost() {
   function createPostFun() {
     return axios.post(`https://route-posts.routemisr.com/posts`, prepareFormData(), {
       headers: {
-        Authorization: `Bearer ${userToken}`,
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
       },
     });
   }
