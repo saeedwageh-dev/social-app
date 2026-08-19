@@ -217,8 +217,8 @@ function Sidebar () {
             </button>
           </div>
 
-          {/* Collapse */}
-          <button
+          {/* change password */}
+          <Link to={"/change-password"}
             type="button"
             className="group flex w-full items-center gap-4 rounded-2xl border border-[#242630] bg-[#0F1117] p-3 text-left transition-all duration-200 hover:border-[#7C4DFF]/25 hover:bg-[#151721]"
           >
@@ -228,8 +228,8 @@ function Sidebar () {
               </svg>
             </span>
 
-            <span className="text-[15px] font-medium text-[#E8E8EC] transition-colors duration-200 group-hover:text-white">Collapse</span>
-          </button>
+            <span className="text-[15px] font-medium text-[#E8E8EC] transition-colors duration-200 group-hover:text-white">Change Password</span>
+          </Link>
         </div>
       </div>
     </aside>

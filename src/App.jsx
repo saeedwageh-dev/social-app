@@ -17,6 +17,7 @@ import ProtectedRoute from "./components/ProtectedRoute/ProtectedRoute";
 import ProtectedAuth from "./components/ProtectedAuth/ProtectedAuth";
 
 import PageNotFound from "./Pages/PageNotFound/PageNotFound";
+import ChangePassword from "./Pages/ChangePassword/ChangePassword";
 
 const queryClient = new QueryClient();
 
@@ -74,6 +75,10 @@ function App() {
       path: "*",
       element: <PageNotFound />,
     },
+    {
+      path:"/change-password",
+      element:<ChangePassword/>
+    }
   ]);
 
   return (
