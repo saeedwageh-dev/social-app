@@ -18,38 +18,7 @@ export default function ApiError() {
       />
 
       <section className="relative z-10 flex w-full max-w-2xl flex-col items-center text-center">
-        {/* SquaChat Branding */}
-        <div className="mb-12 flex items-center gap-2.5 sm:mb-16">
-          <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-linear-to-br from-violet-500 to-purple-700 shadow-lg shadow-violet-600/20 sm:h-10 sm:w-10">
-            <svg
-              viewBox="0 0 24 24"
-              fill="none"
-              className="h-4.75 w-4.75 text-white sm:h-5 sm:w-5"
-              aria-hidden="true"
-            >
-              <path
-                d="M20 11.5C20 15.6421 16.4183 19 12 19C10.7685 19 9.60132 18.7398 8.56613 18.2757L4 20L5.26983 16.4742C4.47112 15.1459 4 13.5988 4 11.5C4 7.35786 7.58172 4 12 4C16.4183 4 20 7.35786 20 11.5Z"
-                stroke="currentColor"
-                strokeWidth="1.8"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              />
-              <path
-                d="M8.5 11.5H8.51M12 11.5H12.01M15.5 11.5H15.51"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-              />
-            </svg>
-          </div>
 
-          <span className="text-[22px] font-bold tracking-tight sm:text-2xl">
-            <span className="text-white">Squa</span>
-            <span className="bg-linear-to-r from-violet-400 to-purple-500 bg-clip-text text-transparent">
-              Chat
-            </span>
-          </span>
-        </div>
 
         {/* HTTP Status Badge */}
         <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-violet-500/25 bg-violet-500/6 px-3.5 py-1.5 text-xs font-semibold tracking-wide text-violet-300 shadow-sm shadow-violet-500/5">
@@ -151,18 +120,7 @@ export default function ApiError() {
       
         </div>
 
-        {/* Subtle status line */}
-        <div className="mt-10 flex items-center gap-2 text-xs text-slate-600">
-          <span
-            aria-hidden="true"
-            className="h-px w-8 bg-slate-800"
-          />
-          <span>SquaChat</span>
-          <span
-            aria-hidden="true"
-            className="h-px w-8 bg-slate-800"
-          />
-        </div>
+
       </section>
     </main>
   );
