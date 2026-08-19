@@ -3,6 +3,7 @@ import { AuthContext } from "../../Context/AuthContext";
 import axios from "axios";
 import { useQuery } from "@tanstack/react-query";
 import Post from "../../components/Posts/Post";
+import EmptyPosts from "../../components/EmptyPosts/EmptyPosts";
 
 export default function Profile() {
   const { userData, userToken } = useContext(AuthContext);
@@ -169,12 +170,17 @@ export default function Profile() {
           </div>
 
           {/* Posts Grid */}
-          <div className="p-3 sm:p-5 md:p-6">
+          {/* <div className="p-3 sm:p-5 md:p-6">
             <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-1">
-              {/* Post 1 */}
               {data?.map((post) => (
                 <Post post={post} key={post?._id}/>
               ))}
+            </div>
+          </div> */}
+
+          <div className="p-3 sm:p-5 md:p-6">
+            <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-1">
+              {data?.length > 0 ? data?.map((post) => <Post key={post._id} post={post} />) : <EmptyPosts />}
             </div>
           </div>
         </section>
