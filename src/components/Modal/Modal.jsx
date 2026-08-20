@@ -1,12 +1,14 @@
 import axios from "axios";
-import { useEffect, useRef, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { AuthContext } from "../../Context/AuthContext";
 
 function PostModal({ setIsOpen, isOpen, postId, isEdit = false }) {
   const [uploadeImg, setUploadeImg] = useState(null);
 
   const imageInputRef = useRef(null);
   const contentInputRef = useRef(null);
+ const { userData } = useContext(AuthContext);
 
   const queryClient = useQueryClient();
 
@@ -232,7 +234,7 @@ function PostModal({ setIsOpen, isOpen, postId, isEdit = false }) {
           <div className="flex items-center gap-3">
             <div className="h-11 w-11 shrink-0 overflow-hidden rounded-full border border-white/8 bg-[#3a3a3a]">
               <img
-                src="https://i.pravatar.cc/100?img=12"
+                src={userData?.photo}
                 alt="User"
                 className="h-full w-full object-cover"
               />
@@ -240,7 +242,7 @@ function PostModal({ setIsOpen, isOpen, postId, isEdit = false }) {
 
             <div>
               <p className="text-sm font-semibold text-white">
-                Victor Emokpare
+                {userData?.name}
               </p>
 
               <button
