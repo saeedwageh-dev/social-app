@@ -9,6 +9,7 @@ import Dropdown from "../Dropdown/Dropdown";
 
 function Post({ post, isSinglePost = false }) {
   const { userToken, userData } = useContext(AuthContext);
+  const [showAllComments, setShowAllComments] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const date = new Date(post.createdAt);
   const formattedDate = date.toLocaleString("en-US", {
@@ -33,7 +34,7 @@ function Post({ post, isSinglePost = false }) {
     select: (data) => {
       return data?.data.data.comments;
     },
-    enabled: isSinglePost,
+    // enabled: isSinglePost,
   });
   // console.log(data)
 
@@ -154,11 +155,12 @@ function Post({ post, isSinglePost = false }) {
         {/* Comments Section */}
         {post.topComment && (
           <section className="mt-5 bg-[#0f1218] p-4 shadow-[0_12px_35px_rgba(0,0,0,0.12)] sm:p-5">
+            {/* Header */}
             <div className="mb-5 flex items-center justify-between">
               <div>
                 <h2 className="text-sm font-semibold text-[#eeeeee]">Comments</h2>
 
-                <p className="mt-1 text-[10px] text-[#707070]">18 people joined the conversation</p>
+                <p className="mt-1 text-[10px] text-[#707070]">{showAllComments ? `${data?.length || 0} comments` : "Top comment"}</p>
               </div>
 
               <button type="button" className="flex items-center gap-1.5 text-[10px] text-[#858585] transition hover:text-white">
@@ -169,17 +171,25 @@ function Post({ post, isSinglePost = false }) {
               </button>
             </div>
 
+            {/* Comments */}
             <div className="space-y-5">
-              {/* Single comment */}
-              {isSinglePost === false && <Comment comment={post.topComment} />}
+              {/* Show top comment */}
+              {!showAllComments && post.topComment && <Comment comment={post.topComment} />}
 
-              {/* All comments */}
-              {isSinglePost === true && data?.map((comment) => <Comment comment={comment} key={comment._id} />)}
+              {/* Show all comments */}
+              {showAllComments && data?.map((comment) => <Comment comment={comment} key={comment._id} />)}
             </div>
 
-            <button type="button" className="mt-6 w-full rounded-lg border border-[#383838] bg-[#292929] py-2.5 text-xs font-medium text-[#969696] transition hover:border-[#484848] hover:bg-[#303030] hover:text-white">
-              View all comments
-            </button>
+            {/* View all / Hide comments */}
+            {data?.length > 1 && (
+              <button
+                type="button"
+                onClick={() => setShowAllComments((prev) => !prev)}
+                className="cursor-pointer mt-6 w-full rounded-lg border border-[#383838] bg-[#292929] py-2.5 text-xs font-medium text-[#969696] transition hover:border-[#484848] hover:bg-[#303030] hover:text-white"
+              >
+                {showAllComments ? "Hide comments" : `View all comments (${data.length})`}
+              </button>
+            )}
           </section>
         )}
       </article>
