@@ -22,6 +22,7 @@ import ChangePassword from "./Pages/ChangePassword/ChangePassword";
 const queryClient = new QueryClient();
 
 function App() {
+  
   const router = createBrowserRouter([
     // Authentication routes
     {

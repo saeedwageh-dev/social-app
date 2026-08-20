@@ -1,10 +1,21 @@
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Link, NavLink, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../Context/AuthContext";
 
 function Sidebar () {
  const {setUserToken}= useContext(AuthContext)
  const navigate=useNavigate()
+
+
+ const [theme, setTheme] = useState(
+  localStorage.getItem("theme") || "dark"
+);
+
+useEffect(() => {
+  document.documentElement.classList.toggle("dark", theme === "dark");
+  localStorage.setItem("theme", theme);
+}, [theme]);
+
   const logout = () => {
     localStorage.removeItem("token");
     setUserToken(null);
@@ -175,47 +186,63 @@ function Sidebar () {
           <div className="h-px w-full bg-white/10" />
 
           {/* Theme Toggle */}
-          <div className="flex w-full items-center rounded-2xl border border-[#242630] bg-[#0F1117] p-1">
-            <button
-              type="button"
-              className="group flex min-w-0 flex-1 items-center justify-center gap-2 rounded-xl px-3 py-3 text-[#9A9CA8] transition-all duration-200 hover:bg-[#151721] hover:text-[#F5F5F7]"
-            >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="1.8"
-                className="h-5 w-5 shrink-0"
-              >
-                <circle cx="12" cy="12" r="3.5" />
-                <path
-                  d="M12 2v2M12 20v2M4.93 4.93l1.42 1.42M17.65 17.65l1.42 1.42M2 12h2M20 12h2M4.93 19.07l1.42-1.42M17.65 6.35l1.42-1.42"
-                  strokeLinecap="round"
-                />
-              </svg>
+      <div className="flex w-full items-center rounded-2xl border border-[#242630] bg-[#0F1117] p-1">
+  {/* Light */}
+  <button
+    type="button"
+    onClick={() => setTheme("light")}
+    className={`group flex min-w-0 flex-1 items-center justify-center gap-2 rounded-xl px-3 py-3 transition-all duration-200 ${
+      theme === "light"
+        ? "border border-[#7C4DFF]/20 bg-[#7C4DFF]/10 text-[#8B5CF6] shadow-[0_0_20px_rgba(124,77,255,0.08)]"
+        : "text-[#9A9CA8] hover:bg-[#151721] hover:text-[#F5F5F7]"
+    }`}
+  >
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.8"
+      className="h-5 w-5 shrink-0"
+    >
+      <circle cx="12" cy="12" r="3.5" />
+      <path
+        d="M12 2v2M12 20v2M4.93 4.93l1.42 1.42M17.65 17.65l1.42 1.42M2 12h2M20 12h2M4.93 19.07l1.42-1.42M17.65 6.35l1.42-1.42"
+        strokeLinecap="round"
+      />
+    </svg>
 
-              <span className="text-[14px] font-medium">Light</span>
-            </button>
+    <span className="text-[14px] font-medium">Light</span>
+  </button>
 
-            <button
-              type="button"
-              className="flex min-w-0 flex-1 items-center justify-center gap-2 rounded-xl border border-[#7C4DFF]/20 bg-[#7C4DFF]/10 px-3 py-3 text-[#8B5CF6] shadow-[0_0_20px_rgba(124,77,255,0.08)] transition-all duration-200"
-            >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="1.8"
-                className="h-5 w-5 shrink-0"
-              >
-                <path d="M20.5 14.2A8.5 8.5 0 0 1 9.8 3.5 8.5 8.5 0 1 0 20.5 14.2Z" strokeLinecap="round" strokeLinejoin="round" />
-              </svg>
+  {/* Dark */}
+  <button
+    type="button"
+    onClick={() => setTheme("dark")}
+    className={`flex min-w-0 flex-1 items-center justify-center gap-2 rounded-xl px-3 py-3 transition-all duration-200 ${
+      theme === "dark"
+        ? "border border-[#7C4DFF]/20 bg-[#7C4DFF]/10 text-[#8B5CF6] shadow-[0_0_20px_rgba(124,77,255,0.08)]"
+        : "text-[#9A9CA8] hover:bg-[#151721] hover:text-[#F5F5F7]"
+    }`}
+  >
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.8"
+      className="h-5 w-5 shrink-0"
+    >
+      <path
+        d="M20.5 14.2A8.5 8.5 0 0 1 9.8 3.5 8.5 8.5 0 1 0 20.5 14.2Z"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
 
-              <span className="text-[14px] font-semibold">Dark</span>
-            </button>
-          </div>
+    <span className="text-[14px] font-semibold">Dark</span>
+  </button>
+</div>
 
           {/* change password */}
           <Link to={"/change-password"}
