@@ -11,7 +11,8 @@ import { AuthContext } from "../../../Context/AuthContext";
 function Register({ setIsRegister }) {
   const [errorMessage, setErrorMessage] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
-  
+const [showPassword, setShowPassword] = useState(false);
+const [showConfirmPassword, setShowConfirmPassword] = useState(false);  
   const navigate = useNavigate();
   const{setUserToken}=useContext(AuthContext)
 
@@ -185,7 +186,7 @@ setIsLoading(false)
             </div>
 
             <input
-              type="password"
+              type={showPassword ? "text" : "password"}
               placeholder="Create a password"
               className={`h-12.5 w-full rounded-xl border bg-[#0d1016] pl-11 pr-4 text-[13px] text-white outline-none placeholder:text-slate-600 transition
   ${errors.password && touchedFields.password ? "border-red-500/70 focus:border-red-500/80 focus:ring-4 focus:ring-red-500/8" : "border-white/10 focus:border-violet-500/60 focus:ring-4 focus:ring-violet-500/8"}
@@ -193,12 +194,62 @@ setIsLoading(false)
               {...register("password")}
             />
 
-            <button type="button" className="absolute right-3.5 top-1/2 -translate-y-1/2 text-slate-500 hover:text-violet-300">
-              <svg width="19" height="19" viewBox="0 0 24 24" fill="none">
-                <path d="M2.5 12C4.35 8.2 7.6 6 12 6C16.4 6 19.65 8.2 21.5 12C19.65 15.8 16.4 18 12 18C7.6 18 4.35 15.8 2.5 12Z" stroke="currentColor" strokeWidth="1.6" />
-                <circle cx="12" cy="12" r="2.5" stroke="currentColor" strokeWidth="1.6" />
-              </svg>
-            </button>
+         <button
+  onClick={() => setShowPassword(!showPassword)}
+  type="button"
+  className="absolute right-3.5 top-1/2 -translate-y-1/2 text-slate-500 hover:text-violet-300 transition-colors"
+>
+  {showPassword ? (
+    // Eye Off
+    <svg
+      width="19"
+      height="19"
+      viewBox="0 0 24 24"
+      fill="none"
+    >
+      <path
+        d="M3 3L21 21"
+        stroke="currentColor"
+        strokeWidth="1.7"
+        strokeLinecap="round"
+      />
+      <path
+        d="M10.6 10.6a2 2 0 0 0 2.8 2.8"
+        stroke="currentColor"
+        strokeWidth="1.7"
+        strokeLinecap="round"
+      />
+      <path
+        d="M9.9 5.2A10.8 10.8 0 0 1 12 5c4.4 0 7.65 2.2 9.5 7a14.2 14.2 0 0 1-2.5 4.1M6.2 6.2C4.6 7.5 3.35 9.4 2.5 12c1.85 4.8 5.1 7 9.5 7 1.2 0 2.3-.18 3.3-.52"
+        stroke="currentColor"
+        strokeWidth="1.7"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
+  ) : (
+    // Eye
+    <svg
+      width="19"
+      height="19"
+      viewBox="0 0 24 24"
+      fill="none"
+    >
+      <path
+        d="M2.5 12C4.35 8.2 7.6 6 12 6C16.4 6 19.65 8.2 21.5 12C19.65 15.8 16.4 18 12 18C7.6 18 4.35 15.8 2.5 12Z"
+        stroke="currentColor"
+        strokeWidth="1.6"
+      />
+      <circle
+        cx="12"
+        cy="12"
+        r="2.5"
+        stroke="currentColor"
+        strokeWidth="1.6"
+      />
+    </svg>
+  )}
+</button>
           </div>
           {errors.password?.message && touchedFields.password && (
             <p className="mt-1.5 flex items-center gap-1.5 text-xs font-medium text-red-400">
@@ -233,19 +284,69 @@ setIsLoading(false)
                 //   },
                 // }
               )}
-              type="password"
+              type={showConfirmPassword ? "text" : "password"}
               placeholder="Confirm your password"
               className={`h-12.5 w-full rounded-xl border bg-[#0d1016] pl-11 pr-4 text-[13px] text-white outline-none placeholder:text-slate-600 transition
   ${errors.rePassword && touchedFields.rePassword ? "border-red-500/70 focus:border-red-500/80 focus:ring-4 focus:ring-red-500/8" : "border-white/10 focus:border-violet-500/60 focus:ring-4 focus:ring-violet-500/8"}
 `}
             />
 
-            <button type="button" className="absolute right-3.5 top-1/2 -translate-y-1/2 text-slate-500 hover:text-violet-300">
-              <svg width="19" height="19" viewBox="0 0 24 24" fill="none">
-                <path d="M2.5 12C4.35 8.2 7.6 6 12 6C16.4 6 19.65 8.2 21.5 12C19.65 15.8 16.4 18 12 18C7.6 18 4.35 15.8 2.5 12Z" stroke="currentColor" strokeWidth="1.6" />
-                <circle cx="12" cy="12" r="2.5" stroke="currentColor" strokeWidth="1.6" />
-              </svg>
-            </button>
+         <button
+  onClick={() =>  setShowConfirmPassword(!showConfirmPassword)}
+  type="button"
+  className="absolute right-3.5 top-1/2 -translate-y-1/2 text-slate-500 hover:text-violet-300 transition-colors"
+>
+  {showConfirmPassword ? (
+    // Eye Off
+    <svg
+      width="19"
+      height="19"
+      viewBox="0 0 24 24"
+      fill="none"
+    >
+      <path
+        d="M3 3L21 21"
+        stroke="currentColor"
+        strokeWidth="1.7"
+        strokeLinecap="round"
+      />
+      <path
+        d="M10.6 10.6a2 2 0 0 0 2.8 2.8"
+        stroke="currentColor"
+        strokeWidth="1.7"
+        strokeLinecap="round"
+      />
+      <path
+        d="M9.9 5.2A10.8 10.8 0 0 1 12 5c4.4 0 7.65 2.2 9.5 7a14.2 14.2 0 0 1-2.5 4.1M6.2 6.2C4.6 7.5 3.35 9.4 2.5 12c1.85 4.8 5.1 7 9.5 7 1.2 0 2.3-.18 3.3-.52"
+        stroke="currentColor"
+        strokeWidth="1.7"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
+  ) : (
+    // Eye
+    <svg
+      width="19"
+      height="19"
+      viewBox="0 0 24 24"
+      fill="none"
+    >
+      <path
+        d="M2.5 12C4.35 8.2 7.6 6 12 6C16.4 6 19.65 8.2 21.5 12C19.65 15.8 16.4 18 12 18C7.6 18 4.35 15.8 2.5 12Z"
+        stroke="currentColor"
+        strokeWidth="1.6"
+      />
+      <circle
+        cx="12"
+        cy="12"
+        r="2.5"
+        stroke="currentColor"
+        strokeWidth="1.6"
+      />
+    </svg>
+  )}
+</button>
           </div>
           {errors.rePassword?.message && touchedFields.rePassword && (
             <p className="mt-1.5 flex items-center gap-1.5 text-xs font-medium text-red-400">

@@ -4,9 +4,9 @@ import { useForm } from "react-hook-form";
 import { AuthContext } from "../../Context/AuthContext";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 
-function CreateComment({ postId, queryKey }) {
+function CreateComment({ postId, queryKey ,isSinglePost}) {
   // console.log(postId)
-  const { userToken ,userData} = useContext(AuthContext);
+  const { userToken, userData } = useContext(AuthContext);
   const query = useQueryClient();
   const { register, handleSubmit, reset } = useForm({
     defaultValues: {
@@ -29,7 +29,8 @@ function CreateComment({ postId, queryKey }) {
     onSuccess: () => {
       console.log("comment Created Successfully");
       reset();
-      query.invalidateQueries({ queryKey: queryKey });
+      (query.invalidateQueries({ queryKey: queryKey }), query.invalidateQueries({ queryKey: ["getProfilePosts"] }));
+      if(isSinglePost) query.invalidateQueries({ queryKey: ["getSinglePost", postId] });
     },
     onError: (error) => {
       console.log("cannot Create Comment");

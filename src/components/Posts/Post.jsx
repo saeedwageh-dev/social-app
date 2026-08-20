@@ -1,16 +1,18 @@
 import { Link } from "react-router-dom";
 import Comment from "../Comment/Comment";
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { useContext, useState } from "react";
 import { AuthContext } from "../../Context/AuthContext";
 import axios from "axios";
 import CreateComment from "../CreateComment/CreateComment";
 import Dropdown from "../Dropdown/Dropdown";
 
+
 function Post({ post, isSinglePost = false }) {
   const { userToken, userData } = useContext(AuthContext);
   const [showAllComments, setShowAllComments] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+ const queryClient = useQueryClient();
   const date = new Date(post.createdAt);
   const formattedDate = date.toLocaleString("en-US", {
     month: "short",
@@ -34,7 +36,7 @@ function Post({ post, isSinglePost = false }) {
     select: (data) => {
       return data?.data.data.comments;
     },
-    // enabled: isSinglePost,
+  enabled: isSinglePost || showAllComments,
   });
   // console.log(data)
 
@@ -150,38 +152,84 @@ function Post({ post, isSinglePost = false }) {
         </div>
 
         {/* Comment Input */}
-        <CreateComment postId={post.id} queryKey={isSinglePost ? ["getPostComments", post?.id] : ["getPost"]} />
+        <CreateComment postId={post.id} queryKey={isSinglePost ? ["getPostComments", post?.id] : ["getPost"]} isSinglePost={isSinglePost}/>
 
         {/* Comments Section */}
-        {post.topComment && (
-          <section className="mt-5 bg-[#0f1218] p-4 shadow-[0_12px_35px_rgba(0,0,0,0.12)] sm:p-5">
-            {/* Header */}
-            <div className="mb-5 flex items-center justify-between">
-              <div>
-                <h2 className="text-sm font-semibold text-[#eeeeee]">Comments</h2>
+    {post.topComment && (
+  <section className="mt-5 bg-[#0f1218] p-4 shadow-[0_12px_35px_rgba(0,0,0,0.12)] sm:p-5">
 
-                <p className="mt-1 text-[10px] text-[#707070]">{showAllComments ? `${data?.length || 0} comments` : "Top comment"}</p>
-              </div>
+    {/* Header */}
+    <div className="mb-5 flex items-center justify-between">
+      <div>
+        <h2 className="text-sm font-semibold text-[#eeeeee]">
+          Comments
+        </h2>
 
-              <button type="button" className="flex items-center gap-1.5 text-[10px] text-[#858585] transition hover:text-white">
-                Most relevant
-                <svg viewBox="0 0 24 24" className="h-3.5 w-3.5" fill="none" stroke="currentColor" strokeWidth="1.8">
-                  <path d="m7 9 5 5 5-5" strokeLinecap="round" strokeLinejoin="round" />
-                </svg>
-              </button>
-            </div>
+        <p className="mt-1 text-[10px] text-[#707070]">
+          {showAllComments
+            ? `${data?.length || 0} comments`
+            : "Top comment"}
+        </p>
+      </div>
 
-            {/* Comments */}
-            <div className="space-y-5">
-              {/* Show top comment */}
-              {!showAllComments && post.topComment && <Comment comment={post.topComment} />}
+      <button
+        type="button"
+        className="flex items-center gap-1.5 text-[10px] text-[#858585] transition hover:text-white"
+      >
+        Most relevant
 
-              {/* Show all comments */}
-              {showAllComments && data?.map((comment) => <Comment comment={comment} key={comment._id} />)}
-            </div>
+        <svg
+          viewBox="0 0 24 24"
+          className="h-3.5 w-3.5"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="1.8"
+        >
+          <path
+            d="m7 9 5 5 5-5"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          />
+        </svg>
+      </button>
+    </div>
 
-            {/* View all / Hide comments */}
-            {data?.length > 1 && (
+    {/* Comments */}
+    <div className="space-y-5">
+
+      {/* Top comment */}
+      {!showAllComments && post.topComment && (
+        <Comment
+          postId={post.id}
+          comment={post.topComment}
+          queryKey={["getPostComments", post.id]}
+          isSinglePost={isSinglePost}
+        />
+      )}
+
+      {/* Loading */}
+      {showAllComments && (
+        <p className="text-center text-xs text-gray-500">
+          Loading comments...
+        </p>
+      )}
+
+      {/* All comments */}
+      {showAllComments &&
+       
+        data?.map((comment) => (
+          <Comment
+            key={comment._id}
+            postId={post.id}
+            comment={comment}
+            queryKey={["getPostComments", post.id]}
+            isSinglePost={isSinglePost}
+          />
+        ))}
+    </div>
+
+    {/* View all / Hide */}
+     {data?.length > 1 && (
               <button
                 type="button"
                 onClick={() => setShowAllComments((prev) => !prev)}
@@ -190,8 +238,9 @@ function Post({ post, isSinglePost = false }) {
                 {showAllComments ? "Hide comments" : `View all comments (${data.length})`}
               </button>
             )}
-          </section>
-        )}
+
+  </section>
+)}
       </article>
     </>
   );
